@@ -14,6 +14,7 @@ def main(args: argparse.Namespace) -> None:
     sentences = gensim.models.word2vec.LineSentence(args.tok_path)
     w2v = gensim.models.Word2Vec(
         sentences,
+        iter=args.iter,
         min_count=args.min_count,
         size=args.size,
         window=args.window,
@@ -37,9 +38,10 @@ if __name__ == "__main__":
     logging.basicConfig(level="INFO", format="%(levelname)s: %(message)s")
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--iter", default=3, help="number of iterations (default: %(default)s)"
+        "--iter", default=3, help="number of iterations (default: %(default)s)",
+        type=int
     )
-    parser.add_argument("--min_count", default=5, help="min count")
+    parser.add_argument("--min_count", default=5, help="min count", type=int)
     parser.add_argument(
         "--results_path",
         required=True,
@@ -52,7 +54,8 @@ if __name__ == "__main__":
         "target word pairs",
     )
     parser.add_argument(
-        "--size", default=100, help="embedding size (default: %(default)s)"
+        "--size", default=100, help="embedding size (default: %(default)s)",
+        type=int
     )
     parser.add_argument(
         "--tok_path", required=True, help="path to input tokenized text file"
@@ -61,5 +64,6 @@ if __name__ == "__main__":
         "--window",
         default=5,
         help="symmetric window size (default: %(default)s)",
+        type=int
     )
     main(parser.parse_args())

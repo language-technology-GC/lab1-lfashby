@@ -103,5 +103,6 @@ if __name__ == "__main__":
         "--window",
         default=10,
         help="symmetric window size (default: %(default)s)",
+        type=int
     )
     main(parser.parse_args())
